@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+/*
+//Auto Generate Flight Call Signs
+*/
+Route::get('/public/addcallSigns', 'API\RequestsController@addcallSigns');
+
+/*
+// Auto clear Generated Flight Call Signs
+*/
+Route::post('/public/clearcallsigns', 'API\RequestsController@autoclearCallSigns');
+
+
+//View all Flight Call Signs
+Route::get('/public/flight_callSigns', 'API\RequestsController@flight_callSigns');
+
 /**
  * Flight Call Sign request route
+ * {NIUYWYW}
  */
-Route::post('/public/{NIUYWYW}/intent', 'API\RequestsController@intent');
-
-
+Route::post('/public/intent', 'API\RequestsController@intent');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
