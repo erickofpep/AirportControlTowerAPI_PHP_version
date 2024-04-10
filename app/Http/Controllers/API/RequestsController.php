@@ -12,6 +12,9 @@ class RequestsController extends Controller
      */
     public function intent($call_sign) {
 
+        //check if Flight name/identity is known in system
+
+        //check if Request body has TAKE-OFF or APPROACH
         return response()->json(['response'=>' flight name/id= '.$call_sign]);
     }
 }
