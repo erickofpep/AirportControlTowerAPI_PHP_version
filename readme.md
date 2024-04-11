@@ -1,8 +1,7 @@
 //View all State change attempts: GET
 http://127.0.0.1:8080/api/public/stateChangeAttempts
-<br />
+
 //Response to State Change: POST
-<br />
 http://127.0.0.1:8080/api/public/statechangeResponse
 {
 "state_change_id": "1", //Refer state_ids of /api/public/stateChangeAttempts
