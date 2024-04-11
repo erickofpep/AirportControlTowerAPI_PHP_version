@@ -25,12 +25,11 @@ Route::get('/public/addcallSigns', 'API\RequestsController@addcallSigns');
 */
 Route::post('/public/clearcallsigns', 'API\RequestsController@autoclearCallSigns');
 
-
 //View all Flight Call Signs
 Route::get('/public/flight_callSigns', 'API\RequestsController@flight_callSigns');
 
 /**
- * Flight Call Sign request route
+ * Flight Call Sign request
  * {NIUYWYW}
  */
 Route::post('/public/intent', 'API\RequestsController@intent');
@@ -44,6 +43,20 @@ Route::get('/public/stateChangeAttempts', 'API\RequestsController@stateChangeAtt
  * Respond to State Change
  */
 Route::post('/public/statechangeResponse', 'API\RequestsController@respondToStateChange');
+
+
+/***
+ * send aircraft location
+ */
+Route::put('/sendLocation', 'API\RequestsController@sendLocation');
+
+
+/***
+ * view aircraft location
+ */
+Route::get('/public/aircraftLocations', 'API\RequestsController@aircraftLocationsView');
+
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\FlightCallSigns;
 use App\StateChangeAttempts;
+use App\aircraftLocations;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -104,18 +105,15 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
     state_id, state_change, attempted_flight_id, attempted_flight_name, datetime_attempted, outcome
     */
     
-    // /*
     $saveStateChange = new StateChangeAttempts();
  
     $saveStateChange->state_change = $request->state;
     $saveStateChange->attempted_flight_id = $fetchFlightID->id;
     $saveStateChange->attempted_flight_name = $request->call_sign;
     $saveStateChange->save();
-// */
+
     return response()->json([ 'response'=>$request->state.' has been requested by Flight '.$request->call_sign ]);
     
-
-
     }
 
 }
@@ -182,12 +180,95 @@ $stateChange->save();
 return response()->json(['response'=>$checkStateChangeID->state_change.' has been '.$request->outcome]);
 
 
-    }
+}
 
+}
+
+
+/**
+* transmit the current position
+*/
+public function sendLocation(Request $request){
+
+    $Expected_type = array("AIRLINER", "PRIVATE");
+
+    $aircraft_name=addslashes(trim($request->aircraft_name));
+
+    $type=addslashes(trim($request->type));
+
+    $latitude=addslashes(trim($request->latitude));
+
+    $longitude=addslashes(trim($request->longitude));
+
+    $altitude=addslashes(trim($request->altitude));
+    $heading=addslashes(trim($request->heading));
+
+    if(!$aircraft_name){
+        return response()->json(['response'=>'What is Name of Aircraft transmitting current position?']); 
+    }
+    elseif(!$type){
+        return response()->json(['response'=>'What is the type of Aircraft?']); 
+    }
+    elseif (!in_array($type, $Expected_type)) {
+        return response()->json(['response'=>'Aircraft type shoul be AIRLINER or PRIVATE']);
+    }
+    elseif(!$latitude){
+        return response()->json(['response'=>'What is the Latitude geo coordinate?']);  
+    }
+    elseif(!$longitude){
+        return response()->json(['response'=>'What is the Longitude geo coordinate?']); 
+    }
+    elseif(!$altitude){
+        return response()->json(['response'=>'What is your altitude?']); 
+    }
+    elseif(!$heading){
+        return response()->json(['response'=>'What is your heading?']);
+    }
+    elseif(aircraftLocations::where('aircraft_name', $aircraft_name)->where('type', $type)->where('latitude', $latitude)->where('longitude', $longitude)->where('altitude', $altitude)->where('heading', $heading)->count() > 0){
+        
+        return response()->json(['response'=>'Location information already exist']);
+
+    }
+    else{
+
+    // return response()->json(['response'=>'aircraft_name= '.$aircraft_name.' type= '.$type.' latitude='.$latitude.' longitude='.$longitude.' altitude='.$altitude.' heading='.$heading]);
+
+// /* 
+        $saveLocation = new aircraftLocations();
  
+        $saveLocation->aircraft_name = $aircraft_name;
+        $saveLocation->type = $type;
+        $saveLocation->latitude = $latitude;
+        $saveLocation->longitude = $longitude;
+        $saveLocation->altitude = $altitude;
+        $saveLocation->heading = $heading;
+        $saveLocation->save();
+//  */   
+        return response()->json([ 'response'=>'Location has been transmitted']);
+       
+    }
+}
+
+/**
+* transmit the current position
+*/
+public function aircraftLocationsView(){
+
+    if(aircraftLocations::all()->count() == 0){
+
+        return response()->json(['response'=>'No Aircraft locations transmitted']);
+        
+    }
+    else{
+   
+    $fetchLocations =json_decode(aircraftLocations::orderby('id', 'desc')->get());
+    return $fetchLocations;
+   
+    }  
 
 
 }
+
 
 
 }
