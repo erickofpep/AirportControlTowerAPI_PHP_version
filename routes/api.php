@@ -35,6 +35,16 @@ Route::get('/public/flight_callSigns', 'API\RequestsController@flight_callSigns'
  */
 Route::post('/public/intent', 'API\RequestsController@intent');
 
+/***
+ * View all State change attempts
+ */
+Route::get('/public/stateChangeAttempts', 'API\RequestsController@stateChangeAttempts');
+
+/***
+ * Respond to State Change
+ */
+Route::post('/public/statechangeResponse', 'API\RequestsController@respondToStateChange');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
