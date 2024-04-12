@@ -12,7 +12,9 @@ No Request Body:
   <br />
 }
 
-//Aircraft sends communication: PUT
+/*
+Aircraft sends communication: PUT
+*/
 <br />
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
 <br />
@@ -29,11 +31,15 @@ Request body:
 <br />
 }
 
-//Control Tower Views all Communication: GET
+/*
+Control Tower Views all Communication: GET
+*/
 <br />
 HOST/api/view_communications
 
-//Control Tower's Answer to a request: PUT
+/*
+Control Tower's Answer to a request: PUT
+*/
 <br />
 HOST/api/send/response
 <br />
@@ -65,7 +71,32 @@ http://127.0.0.1:8080/api/initiate/location
 <br />
 No Request Body:
 
+/*
+Aircraft sends location: PUT
+*/
+<br />
+http://127.0.0.1:8080/api/send/location
+<br />
+Request body:
+<br />
+{
+<br />
+"authorization_key": "NA8930",
+"aircraft_name": "NA8930",
+"type": "AIRLINER",
+"latitude": "44.82128505247063",
+"longitude": "20.455516172478386",
+"altitude": "3500",
+"heading": "220"
+<br />
+}
 
+/*
+Control Tower Views all transmitted Locations: GET
+*/
+<br />
+http://127.0.0.1:8080/api/view/locations
+<br />
 
 //View all State change attempts: GET
 <br />
