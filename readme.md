@@ -25,6 +25,10 @@ Request body:
 <br />
 }
 
+//Control Tower Views all Communication: GET
+<br />
+http://127.0.0.1:8080/api/view_communications
+
 
 //View all State change attempts: GET
 http://127.0.0.1:8080/api/public/stateChangeAttempts
