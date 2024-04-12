@@ -25,8 +25,15 @@ When aircraft is parked, Ground Crew communicates the PARKED state internally wi
 */
 Route::put('/send/communication', 'API\RequestsController@sendCommunication');
 
+/*
+Control Tower Views all Communications
+*/
+Route::get('/view_communications', 'API\RequestsController@view_communications');
 
-
+/*
+Control Tower's Answer to a request
+*/
+Route::put('/send/response', 'API\RequestsController@sendResponse');
 
 /*
 //Auto Generate Flight Call Signs

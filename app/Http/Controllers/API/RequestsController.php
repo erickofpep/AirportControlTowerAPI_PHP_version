@@ -60,16 +60,16 @@ public function sendCommunication(Request $request){
         exit;
     }*/
 
-    /*
-     Check if Authorization_key exist 
-    */
+
+//Check if Authorization_key exist 
+
     if(empty($request->authorization_key)){
    
     return json_encode(['response'=>'authorization_key is required'], JSON_PRETTY_PRINT);
 
     }
-    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->where('aircraft_call_sign', null)->count() == 0){
-        
+    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->count() == 0){
+     //->where('aircraft_call_sign', $emptyField)->where('type', 'null')->where('outcome', 'null')   
     return json_encode(['response'=>'authorization_key not recognized'], JSON_PRETTY_PRINT);
     
     }
@@ -91,9 +91,14 @@ public function sendCommunication(Request $request){
     return json_encode(['response'=>'aircraft state is required'], JSON_PRETTY_PRINT);
             
     }
-    elseif (!in_array($request->type, $Expected_state)) {
+    elseif (!in_array($request->state, $Expected_state)) {
 
     return json_encode(['response'=>'aircraft state must be AIRBORNE or PARKED or LANDED or TAKE-OFF'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->where('type', $request->type)->where('state', $request->state)->count() > 0){
+        
+    return response()->json(['response'=>'Communication already exist']);
 
     }
     else{
@@ -101,7 +106,7 @@ public function sendCommunication(Request $request){
     // return json_encode(['response'=>'authorization_key= '.$request->authorization_key.' callsign= '.$request->aircraft_call_sign.' type= '.$request->type.' state= '.$request->state], JSON_PRETTY_PRINT);
     
     $stateChange = aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->first();
-    $stateChange->aircraft_call_sign = $request->outcome;
+    $stateChange->aircraft_call_sign = strtoupper($request->aircraft_call_sign);
     $stateChange->type = $request->type;
     $stateChange->state = $request->state;
     $stateChange->save();
@@ -117,8 +122,64 @@ public function sendCommunication(Request $request){
 }
 
 
+//Control Tower Views all Communications
+public function view_communications(){
+    if(aircraftCommunications::all()->count() == 0){
 
-//Auto Generate Flight Call Signs
+        return json_encode(['response'=>'No Communication available'], JSON_PRETTY_PRINT);
+
+    }
+    else{
+   
+    $FetchCommunications =json_decode(aircraftCommunications::orderby('id', 'desc')->get());
+    return $FetchCommunications;
+   
+    }
+}
+
+/*
+Control Tower's Answer to a request
+*/
+public function sendResponse(Request $request){
+
+    $Expected_Answer = array("ACCEPTED", "REJECTED");
+
+    if(empty($request->authorization_key)){
+   
+    return json_encode(['response'=>'authorization_key must not be empty'], JSON_PRETTY_PRINT);
+    }
+    elseif(aircraftCommunications::where('authorization_key', $request->authorization_key)->count() == 0){
+
+        return json_encode(['response'=>'authorization_key is not recognized'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(empty($request->outcome)){
+
+    return json_encode(['response'=>'Outcome must not be empty'], JSON_PRETTY_PRINT);
+
+    }
+    elseif (!in_array($request->outcome, $Expected_Answer)) {
+    
+    return json_encode(['response'=>'Outcome must be ACCEPTED or REJECTED'], JSON_PRETTY_PRINT);
+
+    }
+    else{
+
+    // return json_encode(['response'=>'authorization_key= '.base64_decode($request->authorization_key).' Outcome'.$request->outcome], JSON_PRETTY_PRINT);
+    $stateChange = aircraftCommunications::where('authorization_key', $request->authorization_key)->first();
+    $stateChange->outcome = $request->outcome;
+    $stateChange->save();
+
+    return json_encode(['response'=>'Request answered'], JSON_PRETTY_PRINT);
+
+
+    }
+}
+
+
+/*
+Auto Generate Flight Call Signs
+*/
 public function addcallSigns(){
 
 Artisan::call('db:seed');
