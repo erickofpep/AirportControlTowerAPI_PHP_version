@@ -159,3 +159,14 @@ Flight Call Sign request: POST
 */
 <br />
 HOST/api/public/intent
+
+
+/*17
+Ground Crew checks for LANDED aircraft
+*/
+<br />
+http://127.0.0.1:8080/api/view/landed_aircrafts
+
+
+
+
