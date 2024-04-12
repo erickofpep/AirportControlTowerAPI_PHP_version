@@ -1,6 +1,6 @@
 //Aircraft initiates communication: PUT
 <br />
-http://127.0.0.1:8080/api/initiate/communication
+HOST/api/initiate/communication
 <br />
 {
 <br />
@@ -12,7 +12,7 @@ http://127.0.0.1:8080/api/initiate/communication
 <br />
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
 <br />
-http://127.0.0.1:8080/api/send/communication
+HOST/api/send/communication
 <br />
 Request body:
 <br />
@@ -27,11 +27,11 @@ Request body:
 
 //Control Tower Views all Communication: GET
 <br />
-http://127.0.0.1:8080/api/view_communications
+HOST/api/view_communications
 
 //Control Tower's Answer to a request: PUT
 <br />
-http://127.0.0.1:8080/api/send/response
+HOST/api/send/response
 <br />
 {
 <br />
@@ -42,17 +42,17 @@ http://127.0.0.1:8080/api/send/response
 
 
 //View all State change attempts: GET
-http://127.0.0.1:8080/api/public/stateChangeAttempts
+HOST/api/public/stateChangeAttempts
 
 //Response to State Change: POST
-http://127.0.0.1:8080/api/public/statechangeResponse
+HOST/api/public/statechangeResponse
 {
 "state_change_id": "1", //Refer state_ids of /api/public/stateChangeAttempts
 "outcome": "APPROACH" //ACCEPTED or REJECTED
 }
 
 //aircraft sends current position: PUT
-http://127.0.0.1:8080/api/sendLocation
+HOST/api/sendLocation
 {
 "aircraft_name": "NA8930",
 "type": "AIRLINER|PRIVATE",
@@ -63,17 +63,17 @@ http://127.0.0.1:8080/api/sendLocation
 }
 
 //view transmitted locations: GET
-http://127.0.0.1:8080/api/public/aircraftLocations
+HOST/api/public/aircraftLocations
 
 
 //Auto Generate Flight Call Signs: GET
-http://127.0.0.1:8080/api/public/addcallSigns
+HOST/api/public/addcallSigns
 
 // Auto clear Generated Flight Call Signs: POST
-http://127.0.0.1:8080/api/public/clearcallsigns
+HOST/api/public/clearcallsigns
 
 //View all Flight Call Signs: GET
-http://127.0.0.1:8080/api/public/flight_callSigns
+HOST/api/public/flight_callSigns
 
 //Flight Call Sign request: POST
-http://127.0.0.1:8080/api/public/intent
+HOST/api/public/intent
