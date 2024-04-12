@@ -19,6 +19,17 @@ Aircraft Retrieves response from Control Tower: PUT
 */
 Route::put('/initiate/location', 'API\RequestsController@initiateLocation');
 
+/*
+Aircraft sends location: PUT
+*/
+Route::put('/send/location', 'API\RequestsController@location_send');
+
+/*
+Control Tower Views all Locations transmitted: GET
+*/
+Route::get('/view/locations', 'API\RequestsController@location_view');
+
+
 
 /*Aircraft sends communication: PUT
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).

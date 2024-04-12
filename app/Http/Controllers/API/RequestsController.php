@@ -18,6 +18,7 @@ class RequestsController extends Controller
 {
 
 /*
+1.
 Aircraft initiates communication: PUT
 */
 public function initiateCommunication(){
@@ -40,7 +41,8 @@ public function initiateCommunication(){
     }
 }
 
-/*Aircraft sends communication: PUT
+/* 2.
+Aircraft sends communication: PUT
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
 */
 public function sendCommunication(Request $request){
@@ -110,16 +112,15 @@ public function sendCommunication(Request $request){
 
     return json_encode(['response'=>'Communication has been sent'], JSON_PRETTY_PRINT);
 
-
     }
-
-
 
     }
 }
 
 
-//Control Tower Views all Communications
+/* 3.
+Control Tower Views all Communications
+*/
 public function view_communications(){
     if(aircraftCommunications::all()->count() == 0){
 
@@ -134,7 +135,7 @@ public function view_communications(){
     }
 }
 
-/*
+/* 4.
 Control Tower's Answer to a request
 */
 public function sendResponse(Request $request){
@@ -172,7 +173,7 @@ public function sendResponse(Request $request){
     }
 }
 
-/*
+/* 5.
 Aircraft Retrieves response from Control Tower
 */
 public function receiveResponse(Request $request){
@@ -198,7 +199,7 @@ public function receiveResponse(Request $request){
     }
 }
 
-/*
+/* 6.
 Aircraft initiate communication on location
 */
 public function initiateLocation(){
@@ -206,7 +207,7 @@ public function initiateLocation(){
 //Generate base_64encoded(sha) authorization_key;
 $authorization_key = base64_encode( hash('sha256', uniqid()) );
 
-$saveAuthKey = new aircraftCommunications();
+$saveAuthKey = new aircraftLocations();
 $saveAuthKey->authorization_key = base64_decode($authorization_key);
 $saveAuthKey->save();
 
@@ -216,7 +217,90 @@ return json_encode([
 
 }
 
-/*
+/*7.
+Aircraft sends location: PUT
+*/
+public function location_send(Request $request){
+ 
+    $Expected_Aircraft_type = array("AIRLINER", "PRIVATE");
+
+    if(empty($request->aircraft_name)){
+
+    return json_encode(['response'=>'What is the Aircraft name?'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(empty($request->type)){
+        return json_encode(['response'=>'What is the type of Aircraft?'], JSON_PRETTY_PRINT);
+    }
+    elseif (!in_array($request->type, $Expected_Aircraft_type)) {
+        return json_encode(['response'=>'Aircraft type shoul be AIRLINER or PRIVATE'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(empty($request->authorization_key)){
+   
+        return json_encode(['response'=>'authorization_key must not be empty'], JSON_PRETTY_PRINT);
+    }
+   elseif(aircraftLocations::where('authorization_key', base64_decode( $request->authorization_key))->count() == 0){
+        
+        return json_encode(['response'=>'Your authorization_key is not recognized'], JSON_PRETTY_PRINT);
+        
+    }
+    elseif(empty($request->latitude)){
+        return json_encode(['response'=>'What is the Latitude geo coordinate?'], JSON_PRETTY_PRINT); 
+    }
+    elseif(empty($request->longitude)){
+        return json_encode(['response'=>'What is the Longitude geo coordinate?'], JSON_PRETTY_PRINT); 
+    }
+    elseif(!$request->altitude){
+        return json_encode(['response'=>'What is your altitude?'], JSON_PRETTY_PRINT);
+    }
+    elseif(!$request->heading){
+
+        return json_encode(['response'=>'What is your heading?'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(aircraftLocations::where('authorization_key', base64_decode( $request->authorization_key))->where('aircraft_name', $request->aircraft_name)->where('type', $request->type)->where('latitude', $request->latitude)->where('longitude', $request->longitude)->where('altitude', $request->altitude)->where('heading', $request->heading)->count() > 0){
+        
+        return json_encode(['response'=>'Location information already exist'],JSON_PRETTY_PRINT);
+    }
+    else{
+
+    // return response()->json(['response'=>'aircraft_name= '.$aircraft_name.' type= '.$type.' latitude='.$latitude.' longitude='.$longitude.' altitude='.$altitude.' heading='.$heading]);
+
+    $addLocation = aircraftLocations::where('authorization_key', base64_decode($request->authorization_key))->first();
+    $addLocation->aircraft_name = strtoupper($request->aircraft_name);
+    $addLocation->type = $request->type;
+    $addLocation->latitude = $request->latitude;
+    $addLocation->longitude = $request->longitude;
+    $addLocation->altitude = $request->altitude;
+    $addLocation->heading = $request->heading;
+    $addLocation->save();
+
+    return json_encode(['response'=>'Location has been transmitted'], JSON_PRETTY_PRINT);
+       
+    }
+}
+
+/* 8.
+Control Tower Views all transmitted Locations: GET
+*/
+public function location_view(){
+
+    if(aircraftLocations::all()->count() == 0){
+
+return json_encode(['response'=>'No Locations available'], JSON_PRETTY_PRINT);
+  
+    }
+    else{
+
+    $FetchAllLocations =json_decode(aircraftLocations::orderby('id', 'desc')->get());
+    return $FetchAllLocations;
+
+    }
+}
+
+
+/* 9.
 Auto Generate Flight Call Signs
 */
 public function addcallSigns(){
@@ -234,7 +318,9 @@ Artisan::call('db:seed');
 
 }
 
-//Auto clear Generated Flight Call Signs
+/* 10.
+Auto clear Generated Flight Call Signs
+*/
 public function autoclearCallSigns(){
 
     Artisan::call('migrate:refresh'); //,['--path' => './database/migrations/2024_04_04_132329_create_tasks.php']
@@ -248,7 +334,7 @@ public function autoclearCallSigns(){
 }
 
 
-/**
+/*11.
 * Show all Flight Call Signs
 */
 public function flight_callSigns(){
@@ -267,7 +353,7 @@ public function flight_callSigns(){
 
 }
 
-/**
+/*12.
 * Flight Call Sign request
 */
 public function intent(Request $request) {
@@ -327,7 +413,7 @@ else{
   
 }
 
-/**
+/*13.
 * View all State change attempts
 */
 public function stateChangeAttempts(){
@@ -347,7 +433,7 @@ public function stateChangeAttempts(){
 }
 
 
-/**
+/*14.
 * Respond to State Change
 */
 public function respondToStateChange(Request $request){
@@ -388,7 +474,7 @@ return response()->json(['response'=>$checkStateChangeID->state_change.' has bee
 }
 
 
-/**
+/*15.
 * transmit the current position
 */
 public function sendLocation(Request $request){
@@ -452,7 +538,7 @@ public function sendLocation(Request $request){
     }
 }
 
-/**
+/*16.
 * transmit the current position
 */
 public function aircraftLocationsView(){

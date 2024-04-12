@@ -15,12 +15,13 @@ class CreateAircraftLocationsTable extends Migration
     {
         Schema::create('aircraft_locations', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('authorization_key')->nullable();
             $table->string('aircraft_name')->nullable();
-            $table->string('type');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->string('altitude');
-            $table->string('heading');
+            $table->string('type')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('altitude')->nullable();
+            $table->string('heading')->nullable();
             $table->timestamps();
         });
     }
