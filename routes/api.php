@@ -16,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 
 /*
+Aircraft initiates communication: PUT
+*/
+Route::put('/initiate/communication', 'API\RequestsController@initiateCommunication');
+
+/*Aircraft sends communication: PUT
+When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
+*/
+Route::put('/send/communication', 'API\RequestsController@sendCommunication');
+
+
+
+
+/*
 //Auto Generate Flight Call Signs
 */
 Route::get('/public/addcallSigns', 'API\RequestsController@addcallSigns');

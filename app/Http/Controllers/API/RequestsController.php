@@ -5,15 +5,118 @@ namespace App\Http\Controllers\API;
 use App\FlightCallSigns;
 use App\StateChangeAttempts;
 use App\aircraftLocations;
+use App\aircraftCommunications;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 
 use Illuminate\Support\Facades\DB;
+use Lcobucci\JWT\Signer\Ecdsa\Sha256;
 
 class RequestsController extends Controller
 {
+
+/*
+Aircraft initiates communication: PUT
+*/
+public function initiateCommunication(){
+
+    if ($_SERVER['REQUEST_METHOD'] !='PUT') {
+        return json_encode(['response'=>'Invalid Request Method. Must be a PUT request'], JSON_PRETTY_PRINT);
+        //exit();
+    }
+    else {
+    
+    //Generate base_64encoded(sha) authorization_key;
+    $authorization_key = base64_encode( hash('sha256', uniqid()) );
+
+    $saveAuthKey = new aircraftCommunications();
+    $saveAuthKey->authorization_key = base64_decode($authorization_key);
+    $saveAuthKey->save();
+
+    return json_encode([ "authorization_key"=> $authorization_key], JSON_PRETTY_PRINT);
+
+    }
+}
+
+/*Aircraft sends communication: PUT
+When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
+*/
+public function sendCommunication(Request $request){
+
+    $Expected_type = array("AIRLINER", "PRIVATE");
+    $Expected_state = array("AIRBORNE", "PARKED", "LANDED", "TAKE-OFF");
+
+    if ($_SERVER['REQUEST_METHOD'] !='PUT') {
+        return json_encode(['response'=>'Invalid Request Method. Must be a PUT request'], JSON_PRETTY_PRINT);
+        //exit();
+    }
+    else {
+    
+    /*$headers=getallheaders();
+    if ( !array_key_exists('authorization_key', $headers)) {
+        return json_encode([ "response"=> "authorization_code header is missing"], JSON_PRETTY_PRINT);
+        exit;
+    }*/
+
+    /*
+     Check if Authorization_key exist 
+    */
+    if(empty($request->authorization_key)){
+   
+    return json_encode(['response'=>'authorization_key is required'], JSON_PRETTY_PRINT);
+
+    }
+    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->where('aircraft_call_sign', null)->count() == 0){
+        
+    return json_encode(['response'=>'authorization_key not recognized'], JSON_PRETTY_PRINT);
+    
+    }
+    elseif(empty($request->aircraft_call_sign)){
+   
+    return json_encode(['response'=>'aircraft_call_sign is required'], JSON_PRETTY_PRINT);
+        
+    }
+    elseif(empty($request->type)){
+   
+    return json_encode(['response'=>'aircraft type is required'], JSON_PRETTY_PRINT);
+            
+    }
+    elseif (!in_array($request->type, $Expected_type)) {
+    return json_encode(['response'=>'aircraft type must be AIRLINER or PRIVATE'], JSON_PRETTY_PRINT);
+    }
+    elseif(empty($request->state)){
+   
+    return json_encode(['response'=>'aircraft state is required'], JSON_PRETTY_PRINT);
+            
+    }
+    elseif (!in_array($request->type, $Expected_state)) {
+
+    return json_encode(['response'=>'aircraft state must be AIRBORNE or PARKED or LANDED or TAKE-OFF'], JSON_PRETTY_PRINT);
+
+    }
+    else{
+
+    // return json_encode(['response'=>'authorization_key= '.$request->authorization_key.' callsign= '.$request->aircraft_call_sign.' type= '.$request->type.' state= '.$request->state], JSON_PRETTY_PRINT);
+    
+    $stateChange = aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->first();
+    $stateChange->aircraft_call_sign = $request->outcome;
+    $stateChange->type = $request->type;
+    $stateChange->state = $request->state;
+    $stateChange->save();
+
+    return json_encode(['response'=>'Communication has been sent'], JSON_PRETTY_PRINT);
+
+
+    }
+
+
+
+    }
+}
+
+
 
 //Auto Generate Flight Call Signs
 public function addcallSigns(){

@@ -516,6 +516,7 @@ class ComposerStaticInit418ce67e7cccdcf0c705e0ff8f80601b
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\StateChangeAttempts' => __DIR__ . '/../..' . '/app/StateChangeAttempts.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\aircraftCommunications' => __DIR__ . '/../..' . '/app/aircraftCommunications.php',
         'App\\aircraftLocations' => __DIR__ . '/../..' . '/app/aircraftLocations.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
