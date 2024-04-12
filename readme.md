@@ -45,7 +45,9 @@ HOST/api/send/response
 }
 
 
-//Retrieve response from Control Tower: PUT
+/*
+Aircraft Retrieves response from Control Tower: PUT
+*/
 <br />
 HOST/api/receive/response
 <br />
@@ -55,9 +57,18 @@ HOST/api/receive/response
 <br />
 }
 
+/*
+Aircraft initiates communication on location: PUT
+*/
+<br />
+http://127.0.0.1:8080/api/initiate/location
+<br />
+No Request Body:
+
 
 
 //View all State change attempts: GET
+<br />
 HOST/api/public/stateChangeAttempts
 
 //Response to State Change: POST
