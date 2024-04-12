@@ -41,6 +41,18 @@ HOST/api/send/response
 }
 
 
+//Retrieve response from Control Tower: PUT
+<br />
+HOST/api/receive/response
+<br />
+{
+<br />
+"authorization_key": ""
+<br />
+}
+
+
+
 //View all State change attempts: GET
 HOST/api/public/stateChangeAttempts
 
