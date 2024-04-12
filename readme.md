@@ -1,3 +1,27 @@
+//Aircraft initiates communication: PUT
+http://127.0.0.1:8080/api/initiate/communication
+{
+  "authorization_key": "NA8930dafdadfad=="
+}
+
+//Aircraft sends communication: PUT
+<br />
+When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
+<br />
+http://127.0.0.1:8080/api/send/communication
+<br />
+Request body:
+<br />
+{
+<br />
+"authorization_key": "",
+"aircraft_call_sign": "NA8930",
+"type": "", //AIRLINER|PRIVATE
+"state": "" //AIRBORNE |PARKED | LANDED |TAKE-OFF
+<br />
+}
+
+
 //View all State change attempts: GET
 http://127.0.0.1:8080/api/public/stateChangeAttempts
 
