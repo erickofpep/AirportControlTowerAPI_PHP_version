@@ -1,7 +1,11 @@
 //Aircraft initiates communication: PUT
+<br />
 http://127.0.0.1:8080/api/initiate/communication
+<br />
 {
+<br />
   "authorization_key": "NA8930dafdadfad=="
+  <br />
 }
 
 //Aircraft sends communication: PUT
