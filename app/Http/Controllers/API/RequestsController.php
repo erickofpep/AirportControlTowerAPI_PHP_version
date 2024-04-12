@@ -60,16 +60,13 @@ public function sendCommunication(Request $request){
         exit;
     }*/
 
-
-//Check if Authorization_key exist 
-
     if(empty($request->authorization_key)){
    
     return json_encode(['response'=>'authorization_key is required'], JSON_PRETTY_PRINT);
 
     }
     elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->count() == 0){
-     //->where('aircraft_call_sign', $emptyField)->where('type', 'null')->where('outcome', 'null')   
+
     return json_encode(['response'=>'authorization_key not recognized'], JSON_PRETTY_PRINT);
     
     }
@@ -176,7 +173,7 @@ public function sendResponse(Request $request){
 }
 
 /*
-Retrieve response from Control Tower
+Aircraft Retrieves response from Control Tower
 */
 public function receiveResponse(Request $request){
     if(empty($request->authorization_key)){
@@ -201,8 +198,23 @@ public function receiveResponse(Request $request){
     }
 }
 
+/*
+Aircraft initiate communication on location
+*/
+public function initiateLocation(){
 
+//Generate base_64encoded(sha) authorization_key;
+$authorization_key = base64_encode( hash('sha256', uniqid()) );
 
+$saveAuthKey = new aircraftCommunications();
+$saveAuthKey->authorization_key = base64_decode($authorization_key);
+$saveAuthKey->save();
+
+return json_encode([ 
+    "required authorization"=> $authorization_key
+], JSON_PRETTY_PRINT);
+
+}
 
 /*
 Auto Generate Flight Call Signs

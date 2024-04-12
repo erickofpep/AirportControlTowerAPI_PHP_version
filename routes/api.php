@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 /*
-Aircraft initiates communication: PUT
+Aircraft Retrieves response from Control Tower: PUT
 */
-Route::put('/initiate/communication', 'API\RequestsController@initiateCommunication');
+Route::put('/initiate/location', 'API\RequestsController@initiateLocation');
+
 
 /*Aircraft sends communication: PUT
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
 */
 Route::put('/send/communication', 'API\RequestsController@sendCommunication');
+
 
 /*
 Control Tower Views all Communications
