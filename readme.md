@@ -165,7 +165,7 @@ HOST/api/public/intent
 Ground Crew checks for LANDED aircraft
 */
 <br />
-http://127.0.0.1:8080/api/view/landed_aircrafts
+HOST/api/view/landed_aircrafts
 
 
 
