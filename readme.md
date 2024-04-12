@@ -67,7 +67,7 @@ HOST/api/receive/response
 Aircraft initiates communication on location: PUT
 */
 <br />
-http://127.0.0.1:8080/api/initiate/location
+HOST/api/initiate/location
 <br />
 No Request Body:
 
@@ -75,7 +75,7 @@ No Request Body:
 Aircraft sends location: PUT
 */
 <br />
-http://127.0.0.1:8080/api/send/location
+HOST/api/send/location
 <br />
 Request body:
 <br />
@@ -95,21 +95,27 @@ Request body:
 Control Tower Views all transmitted Locations: GET
 */
 <br />
-http://127.0.0.1:8080/api/view/locations
+HOST/api/view/locations
 <br />
 
-//View all State change attempts: GET
+/*
+View all State change attempts: GET
+*/
 <br />
 HOST/api/public/stateChangeAttempts
 
-//Response to State Change: POST
+/*
+Response to State Change: POST
+*/
 HOST/api/public/statechangeResponse
 {
 "state_change_id": "1", //Refer state_ids of /api/public/stateChangeAttempts
 "outcome": "APPROACH" //ACCEPTED or REJECTED
 }
 
-//aircraft sends current position: PUT
+/*
+aircraft sends current position: PUT
+*/
 HOST/api/sendLocation
 {
 "aircraft_name": "NA8930",
@@ -120,11 +126,15 @@ HOST/api/sendLocation
 "heading": 220
 }
 
-//view transmitted locations: GET
+/*
+view transmitted locations: GET
+*/
 HOST/api/public/aircraftLocations
 
 
-//Auto Generate Flight Call Signs: GET
+/*
+Auto Generate Flight Call Signs: GET
+*/
 HOST/api/public/addcallSigns
 
 // Auto clear Generated Flight Call Signs: POST
