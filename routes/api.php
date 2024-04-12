@@ -30,6 +30,11 @@ Control Tower Views all Locations transmitted: GET
 Route::get('/view/locations', 'API\RequestsController@location_view');
 
 
+/*
+Ground Crew checks for LANDED aircraft: GET
+*/
+Route::get('/view/landed_aircrafts', 'API\RequestsController@landed_aircrafts');
+
 
 /*Aircraft sends communication: PUT
 When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).

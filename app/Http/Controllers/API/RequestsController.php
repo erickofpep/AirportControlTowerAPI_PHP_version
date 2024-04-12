@@ -553,9 +553,25 @@ public function aircraftLocationsView(){
     $fetchLocations =json_decode(aircraftLocations::orderby('id', 'desc')->get());
     return $fetchLocations;
    
-    }  
+    }
+}
 
+/*17.
+Ground Crew checks for LANDED aircraft
+*/
+public function landed_aircrafts(){
 
+    if(aircraftCommunications::where('state', 'LANDED')->count() == 0){
+
+return json_encode(['response'=>'No Landed Aircrafts available'], JSON_PRETTY_PRINT);
+  
+    }
+    else{
+
+    $FetchAllLocations =json_decode(aircraftCommunications::where('state', 'LANDED')->orderby('id', 'desc')->get());
+    return $FetchAllLocations;
+
+    }
 }
 
 
