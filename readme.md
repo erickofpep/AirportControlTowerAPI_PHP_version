@@ -29,6 +29,17 @@ Request body:
 <br />
 http://127.0.0.1:8080/api/view_communications
 
+//Control Tower's Answer to a request: PUT
+<br />
+http://127.0.0.1:8080/api/send/response
+<br />
+{
+<br />
+"authorization_key": "",
+"outcome": "" //ACCEPTED or REJECTED
+<br />
+}
+
 
 //View all State change attempts: GET
 http://127.0.0.1:8080/api/public/stateChangeAttempts
