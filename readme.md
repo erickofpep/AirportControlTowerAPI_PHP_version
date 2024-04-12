@@ -25,7 +25,7 @@ Request body:
 <br />
 }
 
-//Control Tower Response to Communications: GET
+//Control Tower Views all Communication: GET
 <br />
 http://127.0.0.1:8080/api/view_communications
 
