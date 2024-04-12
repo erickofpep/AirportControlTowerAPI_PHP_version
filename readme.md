@@ -1,4 +1,4 @@
-/*
+/*1
 Aircraft initiates communication: PUT
 */
 <br />
@@ -12,7 +12,7 @@ No Request Body:
   <br />
 }
 
-/*
+/*2
 Aircraft sends communication: PUT
 */
 <br />
@@ -31,13 +31,13 @@ Request body:
 <br />
 }
 
-/*
+/*3
 Control Tower Views all Communication: GET
 */
 <br />
 HOST/api/view_communications
 
-/*
+/*4
 Control Tower's Answer to a request: PUT
 */
 <br />
@@ -51,7 +51,7 @@ HOST/api/send/response
 }
 
 
-/*
+/*5
 Aircraft Retrieves response from Control Tower: PUT
 */
 <br />
@@ -63,7 +63,7 @@ HOST/api/receive/response
 <br />
 }
 
-/*
+/*6
 Aircraft initiates communication on location: PUT
 */
 <br />
@@ -71,7 +71,7 @@ HOST/api/initiate/location
 <br />
 No Request Body:
 
-/*
+/*7
 Aircraft sends location: PUT
 */
 <br />
@@ -91,20 +91,20 @@ Request body:
 <br />
 }
 
-/*
+/*8
 Control Tower Views all transmitted Locations: GET
 */
 <br />
 HOST/api/view/locations
 <br />
 
-/*
+/*9
 View all State change attempts: GET
 */
 <br />
 HOST/api/public/stateChangeAttempts
 
-/*
+/*10
 Response to State Change: POST
 */
 HOST/api/public/statechangeResponse
@@ -113,35 +113,49 @@ HOST/api/public/statechangeResponse
 "outcome": "APPROACH" //ACCEPTED or REJECTED
 }
 
-/*
+/*11
 aircraft sends current position: PUT
 */
 HOST/api/sendLocation
+<br />
 {
+<br />
 "aircraft_name": "NA8930",
 "type": "AIRLINER|PRIVATE",
 "latitude": "44.82128505247063",
 "longitude": "20.455516172478386",
-"altitude": 3500,
-"heading": 220
+"altitude": "3500",
+"heading": "220"
+<br />
 }
 
-/*
+/*12
 view transmitted locations: GET
 */
+<br />
 HOST/api/public/aircraftLocations
 
 
-/*
+/*13
 Auto Generate Flight Call Signs: GET
 */
+<br />
 HOST/api/public/addcallSigns
 
-// Auto clear Generated Flight Call Signs: POST
+/*14
+Auto clear Generated Flight Call Signs: POST
+*/
+<br />
 HOST/api/public/clearcallsigns
 
-//View all Flight Call Signs: GET
+/*15
+View all Flight Call Signs: GET
+*/
+<br />
 HOST/api/public/flight_callSigns
 
-//Flight Call Sign request: POST
+/*16
+Flight Call Sign request: POST
+*/
+<br />
 HOST/api/public/intent
