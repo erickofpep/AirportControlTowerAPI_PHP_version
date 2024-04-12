@@ -36,6 +36,12 @@ Control Tower's Answer to a request
 Route::put('/send/response', 'API\RequestsController@sendResponse');
 
 /*
+//Retrieve response from Control Tower
+*/
+Route::put('/receive/response', 'API\RequestsController@receiveResponse');
+
+
+/*
 //Auto Generate Flight Call Signs
 */
 Route::get('/public/addcallSigns', 'API\RequestsController@addcallSigns');

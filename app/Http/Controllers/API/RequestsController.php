@@ -172,9 +172,36 @@ public function sendResponse(Request $request){
 
     return json_encode(['response'=>'Request answered'], JSON_PRETTY_PRINT);
 
+    }
+}
+
+/*
+Retrieve response from Control Tower
+*/
+public function receiveResponse(Request $request){
+    if(empty($request->authorization_key)){
+   
+    return json_encode(['response'=>'authorization_key must not be empty'], JSON_PRETTY_PRINT);
+    }
+    elseif(aircraftCommunications::where('authorization_key', base64_decode( $request->authorization_key))->count() == 0){
+    
+    return json_encode(['response'=>'Your authorization_key is not recognized'], JSON_PRETTY_PRINT);
+    
+    }
+    else{
+
+    $fetchAnswer = aircraftCommunications::where('authorization_key', base64_decode( $request->authorization_key))->first();
+    
+    return json_encode([
+        // 'authorization_key'=>$request->authorization_key,
+        'state'=>$fetchAnswer->state,
+        'outcome'=>$fetchAnswer->outcome
+    ], JSON_PRETTY_PRINT);
 
     }
 }
+
+
 
 
 /*
@@ -225,7 +252,7 @@ public function flight_callSigns(){
     return $FetchAllCallSigns;
 
     }
-    
+
 }
 
 /**
@@ -276,7 +303,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
     $saveStateChange->attempted_flight_name = $request->call_sign;
     $saveStateChange->save();
 
-    return response()->json([ 'response'=>$request->state.' has been requested by Flight '.$request->call_sign ]);
+    return response()->json([ 'response'=>$request->state.' has been requested by Flight'.$request->call_sign ]);
     
     }
 
