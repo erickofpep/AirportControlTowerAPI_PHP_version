@@ -1,6 +1,10 @@
-//Aircraft initiates communication: PUT
+/*
+Aircraft initiates communication: PUT
+*/
 <br />
 HOST/api/initiate/communication
+<br />
+No Request Body:
 <br />
 {
 <br />
