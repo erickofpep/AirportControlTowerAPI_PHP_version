@@ -6,6 +6,7 @@ use App\FlightCallSigns;
 use App\StateChangeAttempts;
 use App\aircraftLocations;
 use App\aircraftCommunications;
+use App\weatherinfo;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -124,7 +125,7 @@ Control Tower Views all Communications
 public function view_communications(){
     if(aircraftCommunications::all()->count() == 0){
 
-        return json_encode(['response'=>'No Communication available'], JSON_PRETTY_PRINT);
+    return json_encode(['response'=>'No Communication available'], JSON_PRETTY_PRINT);
 
     }
     else{
@@ -522,7 +523,6 @@ public function sendLocation(Request $request){
 
     // return response()->json(['response'=>'aircraft_name= '.$aircraft_name.' type= '.$type.' latitude='.$latitude.' longitude='.$longitude.' altitude='.$altitude.' heading='.$heading]);
 
-// /* 
         $saveLocation = new aircraftLocations();
  
         $saveLocation->aircraft_name = $aircraft_name;
@@ -532,7 +532,7 @@ public function sendLocation(Request $request){
         $saveLocation->altitude = $altitude;
         $saveLocation->heading = $heading;
         $saveLocation->save();
-//  */   
+ 
         return response()->json([ 'response'=>'Location has been transmitted']);
        
     }
@@ -572,6 +572,104 @@ return json_encode(['response'=>'No Landed Aircrafts available'], JSON_PRETTY_PR
     return $FetchAllLocations;
 
     }
+}
+
+/*17.
+Ground Crew checks for LANDED aircraft
+*/
+public function weatherdata(Request $request){
+
+    if(!$request->city){
+        return json_encode(['response'=>'Enter City to get weather data'], JSON_PRETTY_PRINT);
+    }
+    elseif(!ctype_alpha($request->city)){
+
+     return json_encode(['response'=>'City must be alphabets'], JSON_PRETTY_PRINT);
+
+    }
+    else{
+
+//'.$request->city.'
+    $getLonLat =file_get_contents('http://api.openweathermap.org/geo/1.0/direct?q='.$request->city.'&limit=5&appid=1a1f91e2241e9056cf2dd4f9cf66e8da');
+    $decoded_response=json_decode($getLonLat, true);
+    // return $decoded_response[0]['name'].' '.$decoded_response[0]['lat'];
+    
+    $getWeatherData =file_get_contents('https://api.openweathermap.org/data/2.5/weather?lat='.$decoded_response[0]['lat'].'&lon='.$decoded_response[0]['lon'].'&appid=1a1f91e2241e9056cf2dd4f9cf66e8da');
+    $decoded_WeatherData=json_decode($getWeatherData, true);
+
+
+// return $decoded_WeatherData['weather'][0]['description'] .'  Temperature= '.$decoded_WeatherData['main']['temp'].'  visibility= '.$decoded_WeatherData['visibility'].'  wind_speed='.$decoded_WeatherData['wind']['speed'].'  wind_deg='.$decoded_WeatherData['wind']['deg'].'  last_update=';
+
+
+    //Add Weather Data into Table
+    $saveWeatherData = new weatherinfo();
+    $saveWeatherData->city = $request->city;
+    $saveWeatherData->description = $decoded_WeatherData['weather'][0]['description'];
+    $saveWeatherData->temperature = $decoded_WeatherData['main']['temp'];
+    $saveWeatherData->visibility = $decoded_WeatherData['visibility'];
+    $saveWeatherData->wind_speed = $decoded_WeatherData['wind']['speed'];
+    $saveWeatherData->wind_deg = $decoded_WeatherData['wind']['deg'];
+    $saveWeatherData->save();
+
+
+return json_encode([
+    'description'=>$decoded_WeatherData['weather'][0]['description'],
+    'temperature'=>$decoded_WeatherData['main']['temp'],
+    'visibility'=>$decoded_WeatherData['visibility'],
+    'wind'=>[
+        'speed'=>$decoded_WeatherData['wind']['speed'],
+        'deg'=>$decoded_WeatherData['wind']['deg'],
+    ]
+    //,"last_update"=>''
+], JSON_PRETTY_PRINT);
+
+
+/*
+    $url = "http://api.openweathermap.org/geo/1.0/direct?q=Accra&limit=5&appid=1a1f91e2241e9056cf2dd4f9cf66e8da";
+     $ch = curl_init();
+     curl_setopt($ch, CURLOPT_URL, $url);
+     curl_setopt($ch, CURLOPT_POST, 0);
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+     $response = curl_exec ($ch);
+     $err = curl_error($ch);  //if you need
+     curl_close ($ch);
+
+    //  $decoded_response=json_decode($response, true);
+    //  return $decoded_response[0]['lat'];
+    */
+  }
+
+}
+
+/*18
+view fetched weather data: GET
+*/
+public function viewweatherdata(){
+    if(weatherinfo::all()->count() == 0){
+
+        return json_encode(['response'=>'No Weather info available'], JSON_PRETTY_PRINT);
+    
+        }
+        else{
+       
+        $FetchCommunications =json_decode(weatherinfo::orderby('id', 'desc')->get());
+        return $FetchCommunications;
+        /*
+        return json_encode([
+            'city'=>$FetchCommunications->city,
+            'description'=>$FetchCommunications->description,
+            'temperature'=>$FetchCommunications->temperature,
+            'visibility'=>$FetchCommunications->visibility,
+            'wind'=>[
+                'speed'=>$FetchCommunications->wind_speed,
+                'deg'=>$FetchCommunications->wind_deg
+            ],
+            "last_update"=>$FetchCommunications->created_at
+        ], JSON_PRETTY_PRINT);
+        */
+
+       
+        }
 }
 
 

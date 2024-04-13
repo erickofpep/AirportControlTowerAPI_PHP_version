@@ -99,9 +99,19 @@ Route::put('/sendLocation', 'API\RequestsController@sendLocation');
  */
 Route::get('/public/aircraftLocations', 'API\RequestsController@aircraftLocationsView');
 
+/*
+Ground Crew checks for LANDED aircraft: POST
+*/
+Route::post('/public/weather', 'API\RequestsController@weatherdata');
 
+/*
+view all fetched weather data: GET
+*/
+Route::get('/public/view_weather_info', 'API\RequestsController@viewweatherdata');
+/*
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
