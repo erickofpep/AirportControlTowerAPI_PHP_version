@@ -167,8 +167,21 @@ Ground Crew checks for LANDED aircraft
 <br />
 HOST/api/view/landed_aircrafts
 
-
 /*18
+Ground Crew PARKs a LANDED aircraft: POST
+*/
+<br />
+HOST/api/park/landed_aircrafts
+<br />
+Request body:
+<br />
+{
+<br />
+"aircraft_call_sign": ""
+<br />
+}
+
+/*19
 Get current weather data: POST
 */
 <br />
@@ -182,7 +195,7 @@ Request body:
 <br />
 }
 
-/*19
+/*20
 view fetched weather data: GET
 */
 <br />
