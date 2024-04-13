@@ -63,7 +63,13 @@ public function sendCommunication(Request $request){
         exit;
     }*/
 
-$checkIncomingAuth=aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->find(1);
+$checkIncomingAuth=aircraftCommunications::where('authorization_key', '=', base64_decode($request->authorization_key))->find(1);
+
+$auth_keyDecoded=base64_decode($request->authorization_key);
+
+//Is key in database?
+$exist_key= aircraftCommunications::where('authorization_key', $auth_keyDecoded)->first();
+// return $exist_key->aircraft_call_sign.' '.$exist_key->state; exit();
 
     if(empty($request->authorization_key)){
    
@@ -75,7 +81,7 @@ $checkIncomingAuth=aircraftCommunications::where('authorization_key', base64_dec
     return json_encode(['response'=>'authorization_key not recognized'], JSON_PRETTY_PRINT);
     
     }
-    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->count() > 0 && !empty($checkIncomingAuth->aircraft_call_sign) && !empty($checkIncomingAuth->state)){
+    elseif( aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->count() ==1 && !empty($exist_key->aircraft_call_sign) && !empty($exist_key->state) ){
 
         return json_encode(['response'=>'authorization_key has been used'], JSON_PRETTY_PRINT);
         
@@ -628,11 +634,11 @@ public function weatherdata(Request $request){
     if(!$request->city){
         return json_encode(['response'=>'Enter City to get weather data'], JSON_PRETTY_PRINT);
     }
-    elseif(!ctype_alpha($request->city)){
+/*    elseif(!ctype_alpha($request->city)){
 
      return json_encode(['response'=>'City must be alphabets'], JSON_PRETTY_PRINT);
 
-    }
+    } */
     else{
 
 //'.$request->city.'
