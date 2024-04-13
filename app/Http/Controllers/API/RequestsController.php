@@ -574,7 +574,36 @@ return json_encode(['response'=>'No Landed Aircrafts available'], JSON_PRETTY_PR
     }
 }
 
-/*17.
+/*18.
+Ground Crew PARKs a LANDED aircraft: POST
+*/
+public function park_landed_aircrafts(Request $request){
+
+    if(!$request->aircraft_call_sign){
+        return json_encode(['response'=>'Enter Aircraft call sign'], JSON_PRETTY_PRINT);
+    }
+    //check chosen Aircraft has LANDED
+    elseif(aircraftCommunications::where('aircraft_call_sign', $request->aircraft_call_sign)->where('state', 'LANDED')->count() == 0){
+
+    return json_encode(['response'=>$request->aircraft_call_sign.' has not landed'], JSON_PRETTY_PRINT);
+
+    }
+    else{
+
+    return json_encode(['response'=>$request->aircraft_call_sign.' has LANDED'], JSON_PRETTY_PRINT);
+/*
+    $updateToParked = aircraftCommunications::where('aircraft_call_sign', $request->aircraft_call_sign)->first();
+    $updateToParked->state = 'PARKED';
+    $updateToParked->save();
+
+    return json_encode(['response'=>$request->aircraft_call_sign.' is PARKED'], JSON_PRETTY_PRINT);
+    */
+
+    }
+}
+
+
+/*19.
 Ground Crew checks for LANDED aircraft
 */
 public function weatherdata(Request $request){
@@ -641,7 +670,7 @@ return json_encode([
 
 }
 
-/*18
+/*20
 view fetched weather data: GET
 */
 public function viewweatherdata(){

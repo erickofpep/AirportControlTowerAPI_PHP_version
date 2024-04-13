@@ -105,6 +105,12 @@ Ground Crew checks for LANDED aircraft: POST
 Route::post('/public/weather', 'API\RequestsController@weatherdata');
 
 /*
+Ground Crew PARKs a LANDED aircraft:
+*/
+Route::post('/park/landed_aircrafts', 'API\RequestsController@park_landed_aircrafts');
+
+
+/*
 view all fetched weather data: GET
 */
 Route::get('/public/view_weather_info', 'API\RequestsController@viewweatherdata');

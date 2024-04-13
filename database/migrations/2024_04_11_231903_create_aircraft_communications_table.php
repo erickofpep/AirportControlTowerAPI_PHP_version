@@ -20,6 +20,7 @@ class CreateAircraftCommunicationsTable extends Migration
             $table->string('type')->nullable();
             $table->string('state')->nullable();
             $table->string('outcome')->nullable();
+            $table->string('parking_spot')->nullable(); //large|small
             $table->timestamps();
         });
     }
