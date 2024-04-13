@@ -63,6 +63,8 @@ public function sendCommunication(Request $request){
         exit;
     }*/
 
+$checkIncomingAuth=aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->find(1);
+
     if(empty($request->authorization_key)){
    
     return json_encode(['response'=>'authorization_key is required'], JSON_PRETTY_PRINT);
@@ -73,6 +75,11 @@ public function sendCommunication(Request $request){
     return json_encode(['response'=>'authorization_key not recognized'], JSON_PRETTY_PRINT);
     
     }
+    elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->count() > 0 && !empty($checkIncomingAuth->aircraft_call_sign) && !empty($checkIncomingAuth->state)){
+
+        return json_encode(['response'=>'authorization_key has been used'], JSON_PRETTY_PRINT);
+        
+        }
     elseif(empty($request->aircraft_call_sign)){
    
     return json_encode(['response'=>'aircraft_call_sign is required'], JSON_PRETTY_PRINT);
@@ -482,39 +489,28 @@ public function sendLocation(Request $request){
 
     $Expected_type = array("AIRLINER", "PRIVATE");
 
-    $aircraft_name=addslashes(trim($request->aircraft_name));
-
-    $type=addslashes(trim($request->type));
-
-    $latitude=addslashes(trim($request->latitude));
-
-    $longitude=addslashes(trim($request->longitude));
-
-    $altitude=addslashes(trim($request->altitude));
-    $heading=addslashes(trim($request->heading));
-
-    if(!$aircraft_name){
+    if(!$request->aircraft_name){
         return response()->json(['response'=>'What is Name of Aircraft transmitting current position?']); 
     }
-    elseif(!$type){
+    elseif(!$request->type){
         return response()->json(['response'=>'What is the type of Aircraft?']); 
     }
-    elseif (!in_array($type, $Expected_type)) {
+    elseif (!in_array($request->type, $Expected_type)) {
         return response()->json(['response'=>'Aircraft type shoul be AIRLINER or PRIVATE']);
     }
-    elseif(!$latitude){
+    elseif(!$request->latitude){
         return response()->json(['response'=>'What is the Latitude geo coordinate?']);  
     }
-    elseif(!$longitude){
+    elseif(!$request->longitude){
         return response()->json(['response'=>'What is the Longitude geo coordinate?']); 
     }
-    elseif(!$altitude){
+    elseif(!$request->altitude){
         return response()->json(['response'=>'What is your altitude?']); 
     }
-    elseif(!$heading){
+    elseif(!$request->heading){
         return response()->json(['response'=>'What is your heading?']);
     }
-    elseif(aircraftLocations::where('aircraft_name', $aircraft_name)->where('type', $type)->where('latitude', $latitude)->where('longitude', $longitude)->where('altitude', $altitude)->where('heading', $heading)->count() > 0){
+    elseif(aircraftLocations::where('aircraft_name', $request->aircraft_name)->where('type', $request->type)->where('latitude', $request->latitude)->where('longitude', $request->longitude)->where('altitude', $request->altitude)->where('heading', $request->heading)->count() > 0){
         
         return response()->json(['response'=>'Location information already exist']);
 
@@ -525,12 +521,12 @@ public function sendLocation(Request $request){
 
         $saveLocation = new aircraftLocations();
  
-        $saveLocation->aircraft_name = $aircraft_name;
-        $saveLocation->type = $type;
-        $saveLocation->latitude = $latitude;
-        $saveLocation->longitude = $longitude;
-        $saveLocation->altitude = $altitude;
-        $saveLocation->heading = $heading;
+        $saveLocation->aircraft_name = $request->aircraft_name;
+        $saveLocation->type = $request->type;
+        $saveLocation->latitude = $request->latitude;
+        $saveLocation->longitude = $request->longitude;
+        $saveLocation->altitude = $request->altitude;
+        $saveLocation->heading = $request->heading;
         $saveLocation->save();
  
         return response()->json([ 'response'=>'Location has been transmitted']);
@@ -620,7 +616,6 @@ public function park_landed_aircrafts(Request $request){
 
     return json_encode(['response'=>$request->aircraft_call_sign.' is PARKED'], JSON_PRETTY_PRINT);
     
-
     }
 }
 

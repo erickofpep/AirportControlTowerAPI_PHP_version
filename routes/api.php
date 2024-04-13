@@ -15,6 +15,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 /*
+Aircraft initiates communication: PUT
+*/
+Route::put('/initiate/communication', 'API\RequestsController@initiateCommunication');
+
+
+/*Aircraft sends communication: PUT
+When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
+*/
+Route::put('/send/communication', 'API\RequestsController@sendCommunication');
+
+
+/*
+Control Tower Views all Communications
+*/
+Route::get('/view_communications', 'API\RequestsController@view_communications');
+
+
+/*
 Aircraft Retrieves response from Control Tower: PUT
 */
 Route::put('/initiate/location', 'API\RequestsController@initiateLocation');
@@ -35,17 +53,6 @@ Ground Crew checks for LANDED aircraft: GET
 */
 Route::get('/view/landed_aircrafts', 'API\RequestsController@landed_aircrafts');
 
-
-/*Aircraft sends communication: PUT
-When aircraft is parked, Ground Crew communicates the PARKED state internally with the control tower (not via API).
-*/
-Route::put('/send/communication', 'API\RequestsController@sendCommunication');
-
-
-/*
-Control Tower Views all Communications
-*/
-Route::get('/view_communications', 'API\RequestsController@view_communications');
 
 /*
 Control Tower's Answer to a request

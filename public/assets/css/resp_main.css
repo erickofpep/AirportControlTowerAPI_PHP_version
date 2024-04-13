@@ -1,0 +1,541 @@
+@media only screen and (max-width: 380px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 0 !important;
+        z-index: 10;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media (max-width:480px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 0 !important;
+        z-index: 10;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media (max-width: 767px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media (max-width: 660px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media (max-width: 606px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media (max-width: 600px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .ftrNav {
+        position: fixed;
+        bottom: 29px !important;
+        z-index: 10;
+        background-color: #fff;
+    }
+    .lgoWrapHm {
+        padding-bottom: 0;
+    }
+    .m-b-50 {
+        margin-bottom: 99px;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .MsgPrmptHM {
+        width: 88%;
+        left: 5%;
+        top: 30%;
+    }
+    .MsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .wrapMsgPrompt {
+        width: 88%;
+        left: 5%;
+    }
+    .lgoTxtHmMBVw {
+        display: block;
+        position: relative;
+        top: 185px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+    }
+    .mblMenu {
+        z-index: 1;
+        padding: 30px 10px 30px 10px;
+        margin: 11px 10px 28px 0;
+    }
+    .lgoImage {
+        width: 13%;
+        margin: 22px 0px 22px 0;
+    }
+    .tpLogoWrap {
+        position: absolute;
+    }
+    .ftrWrap {
+        height: 120px;
+    }
+    .ftrTp {
+        display: block !important;
+        height: 89px !important;
+    }
+    .lgoTEXTHm {
+        font-size: 1.6em;
+    }
+    .app-logo {
+        margin-top: 15px;
+    }
+    .lgoTxt {
+        top: 9px;
+        left: 183px;
+    }
+}
