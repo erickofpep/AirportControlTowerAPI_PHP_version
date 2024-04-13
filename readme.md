@@ -107,15 +107,20 @@ HOST/api/public/stateChangeAttempts
 /*10
 Response to State Change: POST
 */
+<br />
 HOST/api/public/statechangeResponse
+<br />
 {
+<br />
 "state_change_id": "1", //Refer state_ids of /api/public/stateChangeAttempts
 "outcome": "APPROACH" //ACCEPTED or REJECTED
+<br />
 }
 
 /*11
 aircraft sends current position: PUT
 */
+<br />
 HOST/api/sendLocation
 <br />
 {
