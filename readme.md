@@ -178,6 +178,7 @@ Request body:
 {
 <br />
 "aircraft_call_sign": ""
+"parking_spot": "" //large|small
 <br />
 }
 
