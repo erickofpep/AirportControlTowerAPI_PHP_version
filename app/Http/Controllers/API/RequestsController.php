@@ -579,25 +579,47 @@ Ground Crew PARKs a LANDED aircraft: POST
 */
 public function park_landed_aircrafts(Request $request){
 
+    $Expected_spots = array("large", "small");
+
     if(!$request->aircraft_call_sign){
         return json_encode(['response'=>'Enter Aircraft call sign'], JSON_PRETTY_PRINT);
     }
-    //check chosen Aircraft has LANDED
+    elseif(!$request->parking_spot){
+        return json_encode(['response'=>'parking spot is required'], JSON_PRETTY_PRINT);
+    }
+    elseif (!in_array($request->parking_spot, $Expected_spots)) {
+
+        return json_encode(['response'=>'parking spot should be large or small'], JSON_PRETTY_PRINT);
+
+    }
     elseif(aircraftCommunications::where('aircraft_call_sign', $request->aircraft_call_sign)->where('state', 'LANDED')->count() == 0){
+//check chosen Aircraft has LANDED
 
-    return json_encode(['response'=>$request->aircraft_call_sign.' has not landed'], JSON_PRETTY_PRINT);
+        return json_encode(['response'=>$request->aircraft_call_sign.' has not landed'], JSON_PRETTY_PRINT);
+    
+        }
+    elseif ($request->parking_spot =='large' && (aircraftCommunications::where('parking_spot', 'large')->count() == 5) ) {
+//if large, check if large spots are not upto 5, if small, check if spots are not upto 10
 
+    return json_encode(['response'=>'Large parking spots are occupied.'], JSON_PRETTY_PRINT);
+
+    }
+    elseif ($request->parking_spot =='small' && (aircraftCommunications::where('parking_spot', 'small')->count() == 5) ) {
+
+        return json_encode(['response'=>'Small parking spots are occupied.'], JSON_PRETTY_PRINT);
+    
     }
     else{
 
-    return json_encode(['response'=>$request->aircraft_call_sign.' has LANDED'], JSON_PRETTY_PRINT);
-/*
+    // return json_encode(['response'=>$request->aircraft_call_sign.' is PARKED'], JSON_PRETTY_PRINT);
+
     $updateToParked = aircraftCommunications::where('aircraft_call_sign', $request->aircraft_call_sign)->first();
     $updateToParked->state = 'PARKED';
+    $updateToParked->parking_spot = $request->parking_spot;
     $updateToParked->save();
 
     return json_encode(['response'=>$request->aircraft_call_sign.' is PARKED'], JSON_PRETTY_PRINT);
-    */
+    
 
     }
 }
