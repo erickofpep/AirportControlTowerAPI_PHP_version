@@ -168,5 +168,25 @@ Ground Crew checks for LANDED aircraft
 HOST/api/view/landed_aircrafts
 
 
+/*18
+Get current weather data: POST
+*/
+<br />
+HOST/api/public/weather
+<br />
+Request body:
+<br />
+{
+<br />
+"city": "1"
+<br />
+}
+
+/*19
+view fetched weather data: GET
+*/
+<br />
+HOST/api/public/view_weather_info
+
 
 
