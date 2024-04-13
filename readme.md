@@ -207,5 +207,25 @@ view fetched weather data: GET
 <br />
 HOST/api/public/view_weather_info
 
+/*21
+Dashboard login and register
+*/
+<br />
+HOST/
+
+/*22
+Dashboard view for Aircraft communication
+Requires login
+*/
+<br />
+HOST/dashboard
+
+/*23
+Dashboard view for fetched Weather data
+Requires login or register
+*/
+<br />
+HOST/weatherdata
+
 
 
