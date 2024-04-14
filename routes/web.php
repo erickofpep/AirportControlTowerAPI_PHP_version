@@ -22,7 +22,7 @@ Route::post('/register', 'RegisterController@register')->name('register');
 
 Route::post('/login', 'RegisterController@user_login')->name('login');
 
-Route::get('/', 'RegisterController@showhome')->name('login');
+Route::get('/login', 'RegisterController@showhome')->name('login');
 
 
 Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard')->middleware('auth');
