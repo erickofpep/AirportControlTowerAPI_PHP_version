@@ -79,7 +79,7 @@
  <i class="metismenu-icon pe-7s-cloud"></i>Weather data
 <i class="metismenu-state-icon caret-left"></i>
 </a></li>
-<li><a href="#">
+<li><a href="{{ route('parking') }}">
  <i class="metismenu-icon pe-7s-info"></i>Parking overview
 <i class="metismenu-state-icon caret-left"></i>
 </a></li>

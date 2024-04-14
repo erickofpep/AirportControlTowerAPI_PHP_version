@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\FlightCallSigns;
+use App\StateChangeAttempts;
+use App\aircraftLocations;
+use App\aircraftCommunications;
 use App\weatherinfo;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -99,13 +106,22 @@ return view('weatherdata', ['results' => $results]);
 
 
 public function weatherData_page(){
-
 return view('weatherdata');
 }
+
+public function parkingOverview(){
+
+$fetchWeather= aircraftCommunications::where('state', 'PARKED')->orderBy('id', 'desc')->paginate(5);
+return view('parking', ['fetchWeather' => $fetchWeather]);
+// return view('parking');
+}
+
 
 public function showhome(){
  return view('welcome');
 }
+
+
 
 
 

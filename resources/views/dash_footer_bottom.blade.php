@@ -262,11 +262,7 @@
 </a>
                                     </div>
                                     <div class="dots-separator"></div>
-                                    <div class="dropdown">
-                                        <a href="#" class="dot-btn-wrapper dd-chart-btn-2" aria-haspopup="true" data-toggle="" aria-expanded="false">
-<i class="metismenu-icon pe-7s-id dot-btn-icon lnr-pie-chart icon-gradient bg-love-kiss"></i>
-</a>other
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>  

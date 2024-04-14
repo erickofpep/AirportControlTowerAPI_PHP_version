@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,6 +26,8 @@ Route::get('/login', 'RegisterController@showhome')->name('login');
 
 Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard')->middleware('auth');
 
-Route::get('/weatherdata', 'RegisterController@weatherData_page')->name('weatherdata');
+Route::get('/weatherdata', 'RegisterController@weatherData_page')->name('weatherdata')->middleware('auth');;
+
+Route::get('/parking', 'RegisterController@parkingOverview')->name('parking')->middleware('auth');;
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');

@@ -50,7 +50,8 @@ public function sendCommunication(Request $request){
 
     $Expected_type = array("AIRLINER", "PRIVATE");
     $Expected_state = array("AIRBORNE", "PARKED", "LANDED", "TAKE-OFF");
-
+    $Expected_Spots = array("large", "small");
+    
     if ($_SERVER['REQUEST_METHOD'] !='PUT') {
         return json_encode(['response'=>'Invalid Request Method. Must be a PUT request'], JSON_PRETTY_PRINT);
         //exit();
@@ -101,18 +102,41 @@ $exist_key= aircraftCommunications::where('authorization_key', $auth_keyDecoded)
     }
     elseif(empty($request->state)){
    
-    return json_encode(['response'=>'aircraft state is required'], JSON_PRETTY_PRINT);
+    return json_encode(['response'=>'Aircraft state is required'], JSON_PRETTY_PRINT);
             
     }
     elseif (!in_array($request->state, $Expected_state)) {
 
-    return json_encode(['response'=>'aircraft state must be AIRBORNE or PARKED or LANDED or TAKE-OFF'], JSON_PRETTY_PRINT);
+    return json_encode(['response'=>'Aircraft\'s state must be AIRBORNE or PARKED or LANDED or TAKE-OFF'], JSON_PRETTY_PRINT);
 
     }
     elseif(aircraftCommunications::where('authorization_key', base64_decode($request->authorization_key))->where('type', $request->type)->where('state', $request->state)->count() > 0){
-        
-    return response()->json(['response'=>'Communication already exist']);
 
+    return json_encode(['response'=>'Communication already exist'], JSON_PRETTY_PRINT);
+
+
+    }
+    elseif($request->state =='PARKED' && empty($request->parking_spot) ){
+
+    return json_encode(['response'=>'specify Parking spot. Either large or small'], JSON_PRETTY_PRINT);
+    
+    }
+    elseif($request->state =='PARKED' && $request->type =='AIRLINER' && $request->parking_spot != 'large' ){
+
+        return json_encode(['response'=>'Parking spot should be large when Aircraft type is AIRLINER'], JSON_PRETTY_PRINT);
+    
+    }
+    elseif($request->state =='PARKED' && $request->type =='PRIVATE' && $request->parking_spot != 'small' ){
+
+        return json_encode(['response'=>'Parking spot should be small when Aircraft type is PRIVATE'], JSON_PRETTY_PRINT);
+    
+    }
+    elseif($request->state =='PARKED' && !in_array($request->parking_spot, $Expected_Spots)){
+        
+        return json_encode(['response'=>'specify Parking spot as large or small'], JSON_PRETTY_PRINT);
+
+        // if($request->parking_spot != 'large' ||  != 'small'){ }
+        
     }
     else{
 
@@ -122,6 +146,8 @@ $exist_key= aircraftCommunications::where('authorization_key', $auth_keyDecoded)
     $stateChange->aircraft_call_sign = strtoupper($request->aircraft_call_sign);
     $stateChange->type = $request->type;
     $stateChange->state = $request->state;
+    $stateChange->parking_spot = strtolower($request->parking_spot);
+    
     $stateChange->save();
 
     return json_encode(['response'=>'Communication has been sent'], JSON_PRETTY_PRINT);
