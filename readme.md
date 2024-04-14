@@ -28,6 +28,7 @@ Request body:
 "aircraft_call_sign": "NA8930",
 "type": "", //AIRLINER|PRIVATE
 "state": "" //AIRBORNE |PARKED | LANDED |TAKE-OFF
+"parking_spot": "large|small" //required, when state is PARKED
 <br />
 }
 
